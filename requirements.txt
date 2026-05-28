@@ -1,0 +1,17 @@
+torch>=2.2
+torchvision>=0.17
+numpy
+pillow
+scikit-learn
+tqdm
+pyyaml
+faiss-cpu
+fastapi
+uvicorn
+python-multipart
+pystac-client
+planetary-computer
+rasterio
+pytest
+httpx
+pyarrow

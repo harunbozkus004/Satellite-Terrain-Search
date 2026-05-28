@@ -1,0 +1,71 @@
+{
+ "pixel_difference": {
+  "oscd_auroc_ge5": 0.682056631019656,
+  "oscd_ap_ge5": 0.4159565995589186,
+  "oscd_auroc_ge30": 0.8118046085662928,
+  "oscd_ap_ge30": 0.23147733727678402,
+  "vs_seasonal_auroc": 0.7106942401960785,
+  "vs_seasonal_ap": 0.03581292991742458,
+  "threshold": 140.58457946777344,
+  "recall_on_oscd_ge30": 0.0,
+  "false_alarm_rate_seasonal_heldout": 0.011166666666666667,
+  "false_alarm_rate_oscd_unchanged": 0.0
+ },
+ "baseline_imagenet": {
+  "oscd_auroc_ge5": 0.6009586633161639,
+  "oscd_ap_ge5": 0.33932028584484086,
+  "oscd_auroc_ge30": 0.7580463955866856,
+  "oscd_ap_ge30": 0.10150724178247954,
+  "vs_seasonal_auroc": 0.5026948529411766,
+  "vs_seasonal_ap": 0.02019327095652578,
+  "threshold": 0.6266559362411499,
+  "recall_on_oscd_ge30": 0.0,
+  "false_alarm_rate_seasonal_heldout": 0.012666666666666666,
+  "false_alarm_rate_oscd_unchanged": 0.0
+ },
+ "baseline_imagenet_spatial": {
+  "oscd_auroc_ge5": 0.7547962815744871,
+  "oscd_ap_ge5": 0.5035247892489612,
+  "oscd_auroc_ge30": 0.9119080456207773,
+  "oscd_ap_ge30": 0.3465184247640599,
+  "vs_seasonal_auroc": 0.7502708333333334,
+  "vs_seasonal_ap": 0.06833918896648948,
+  "threshold": 0.6512826681137085,
+  "recall_on_oscd_ge30": 0.07352941176470588,
+  "false_alarm_rate_seasonal_heldout": 0.011166666666666667,
+  "false_alarm_rate_oscd_unchanged": 0.0
+ },
+ "seco": {
+  "oscd_auroc_ge5": 0.5908872087657432,
+  "oscd_ap_ge5": 0.34266072512915424,
+  "oscd_auroc_ge30": 0.8026579836360256,
+  "oscd_ap_ge30": 0.12233041446840419,
+  "vs_seasonal_auroc": 0.7277463235294118,
+  "vs_seasonal_ap": 0.04648905436107316,
+  "threshold": 0.4172936975955963,
+  "recall_on_oscd_ge30": 0.022058823529411766,
+  "false_alarm_rate_seasonal_heldout": 0.011,
+  "false_alarm_rate_oscd_unchanged": 0.0018440463645943098
+ },
+ "seco_spatial": {
+  "oscd_auroc_ge5": 0.7320023985900288,
+  "oscd_ap_ge5": 0.4727720019235383,
+  "oscd_auroc_ge30": 0.9114644672410587,
+  "oscd_ap_ge30": 0.31481193286205783,
+  "vs_seasonal_auroc": 0.8496250000000001,
+  "vs_seasonal_ap": 0.09241086805443322,
+  "threshold": 0.7122738361358643,
+  "recall_on_oscd_ge30": 0.058823529411764705,
+  "false_alarm_rate_seasonal_heldout": 0.012166666666666666,
+  "false_alarm_rate_oscd_unchanged": 0.0
+ },
+ "_counts": {
+  "oscd_changed_ge5": 1466,
+  "oscd_changed_ge30": 136,
+  "oscd_unchanged": 3796,
+  "seasonal_cal_pairs": 23902,
+  "seasonal_heldout_pairs": 6000,
+  "quantile": 0.99,
+  "img_size": 128
+ }
+}

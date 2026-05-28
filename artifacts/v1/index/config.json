@@ -1,0 +1,8 @@
+{
+ "checkpoint": "artifacts/seco/encoder.pt",
+ "img_size": 128,
+ "timeseries": "./data/timeseries/timeseries.npz",
+ "kind": "flat",
+ "n": 41973,
+ "dim": 512
+}

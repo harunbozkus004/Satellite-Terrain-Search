@@ -1,0 +1,10 @@
+{
+ "threshold": 0.3643571138381952,
+ "quantile": 0.99,
+ "null_mean": 0.07943285886425025,
+ "null_std": 0.07425540068108825,
+ "n_pairs_calibration": 23905,
+ "n_locations_calibration": 2400,
+ "heldout_false_positive_rate": 0.008,
+ "n_pairs_heldout": 6000
+}

@@ -1,0 +1,46 @@
+{
+ "baseline_imagenet": {
+  "p@k": 0.8468703703703704,
+  "p@1": 0.8816666666666667,
+  "k": 10,
+  "per_class": {
+   "AnnualCrop": 0.8496666666666667,
+   "Forest": 0.965,
+   "HerbaceousVegetation": 0.8211666666666666,
+   "Highway": 0.6324,
+   "Industrial": 0.9102,
+   "Pasture": 0.862,
+   "PermanentCrop": 0.8436,
+   "Residential": 0.9181666666666668,
+   "River": 0.6982,
+   "SeaLake": 0.9228333333333334
+  },
+  "n_queries": 5400,
+  "n_index": 21600,
+  "checkpoint": "imagenet",
+  "split": "test",
+  "img_size": 128
+ },
+ "seco": {
+  "p@k": 0.8910925925925925,
+  "p@1": 0.9137037037037037,
+  "k": 10,
+  "per_class": {
+   "AnnualCrop": 0.9288333333333333,
+   "Forest": 0.9598333333333333,
+   "HerbaceousVegetation": 0.8091666666666667,
+   "Highway": 0.7898000000000002,
+   "Industrial": 0.9482,
+   "Pasture": 0.8932499999999999,
+   "PermanentCrop": 0.808,
+   "Residential": 0.9656666666666668,
+   "River": 0.7868,
+   "SeaLake": 0.9834999999999998
+  },
+  "n_queries": 5400,
+  "n_index": 21600,
+  "checkpoint": "artifacts/seco_seed1/encoder.pt",
+  "split": "test",
+  "img_size": 128
+ }
+}

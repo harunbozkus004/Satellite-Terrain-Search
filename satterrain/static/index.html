@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terrain Search</title>
+<style>
+  :root { --bg:#fafaf9; --fg:#1c1917; --muted:#78716c; --card:#fff; --line:#e7e5e4; --accent:#0f766e; --bad:#b91c1c; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#1c1917; --fg:#f5f5f4; --muted:#a8a29e; --card:#292524; --line:#44403c; --accent:#2dd4bf; --bad:#f87171; } }
+  body { margin:0; font:15px/1.5 system-ui, sans-serif; background:var(--bg); color:var(--fg); }
+  main { max-width:1100px; margin:0 auto; padding:24px 16px; }
+  h1 { font-size:22px; margin:0 0 4px; } h2 { font-size:16px; margin:28px 0 8px; }
+  p.sub { color:var(--muted); margin:0 0 16px; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:16px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; margin-top:12px; }
+  .tile { font-size:12px; color:var(--muted); }
+  .tile img { width:100%; image-rendering:pixelated; border-radius:6px; display:block; cursor:pointer; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  input, button { font:inherit; padding:6px 10px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--fg); }
+  button { background:var(--accent); color:#fff; border:none; cursor:pointer; }
+  .flag { color:var(--bad); font-weight:600; }
+  table { border-collapse:collapse; width:100%; font-size:13px; } td, th { padding:6px; border-bottom:1px solid var(--line); text-align:left; }
+  td img { width:56px; image-rendering:pixelated; border-radius:4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Satellite Terrain Search &amp; Change Detection</h1>
+  <p class="sub" id="status">Loading…</p>
+
+  <section>
+    <h2>Search by image</h2>
+    <div class="row"><input type="file" id="file" accept="image/*"><button onclick="searchUpload()">Find similar terrain</button>
+      <span>or tile id</span><input id="tid" size="6" value="0"><button onclick="searchId(+document.getElementById('tid').value)">Search</button></div>
+    <div id="query" class="grid"></div>
+    <div id="results" class="grid"></div>
+  </section>
+
+  <section>
+    <h2>Largest changes in the catalogue</h2>
+    <table id="changes"><tbody></tbody></table>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+function tile(r) {
+  const cap = r.label || (r.date ? `${r.date} · loc ${r.loc_id}` : '');
+  const sim = r.similarity !== undefined ? ` · ${r.similarity.toFixed(3)}` : '';
+  return `<div class="tile"><img src="${r.image_url}" title="tile ${r.tile_id}" onclick="searchId(${r.tile_id})">#${r.tile_id} ${cap}${sim}</div>`;
+}
+async function show(resp) {
+  if (!resp.ok) { $('results').textContent = await resp.text(); return; }
+  const d = await resp.json();
+  $('query').innerHTML = d.query.image_url ? tile(d.query) : '';
+  $('results').innerHTML = d.results.map(tile).join('');
+}
+async function searchId(id) { $('tid').value = id; show(await fetch(`/search/${id}?k=12`)); }
+async function searchUpload() {
+  const f = $('file').files[0]; if (!f) return;
+  const fd = new FormData(); fd.append('file', f);
+  show(await fetch('/search?k=12', {method:'POST', body:fd}));
+}
+(async () => {
+  try {
+    const h = await (await fetch('/health')).json();
+    $('status').textContent = `${h.n_tiles.toLocaleString()} tiles indexed · ${h.dim}-d embeddings · change threshold ${h.change_threshold?.toFixed(4) ?? 'n/a'}`;
+    const rows = await (await fetch('/changes/top?n=15')).json();
+    $('changes').querySelector('tbody').innerHTML = '<tr><th>Before</th><th>After</th><th>Location</th><th>Dates</th><th>Drift</th><th></th></tr>' +
+      rows.map(r => `<tr><td><img src="${r.before_url}"></td><td><img src="${r.after_url}"></td>
+        <td>${r.lat.toFixed(3)}, ${r.lon.toFixed(3)}</td><td>${r.from} → ${r.to}</td>
+        <td>${r.persistent_drift.toFixed(3)} (z=${r.z_score?.toFixed(1)})</td><td>${r.changed ? '<span class="flag">changed</span>' : ''}</td></tr>`).join('');
+    searchId(0);
+  } catch (e) { $('status').textContent = 'Index not loaded: ' + e; }
+})();
+</script>
+</body>
+</html>
